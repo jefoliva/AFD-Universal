@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="esp">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="">
+    <title>Index</title>
+</head>
+
+<body class="d-flex align-items-center">
+    <div class="container ">
+        <h1 class="display-2 text-center">AFD Universal</h1>
+        <form action="" class="form" id="automata">
+            <div class="row">
+                <div class="col-3">
+                    <label for="input-num-estados" class=""> Número de estados </label>
+                    <input type="number" id="input-num-estados" class="form-control" min="1" max="12"
+                        placeholder="Min: 1, Max: 12  ">
+                </div>
+                <div class="col-3">
+                    <label for="input-alfabeto" class=""> Alfabeto </label>
+                    <input type="text" id="input-alfabeto" class="form-control">
+                </div>
+                <div class="col-3 d-flex align-self-end">
+                    <a href="#" class="btn btn-primary">Generar Tabla</a>
+                </div>
+            </div>
+
+
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">q
+                            <sub>1</sub>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">q
+                            <sub>1</sub>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">q
+                            <sub>1</sub>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">q
+                            <sub>1</sub>
+                        </th>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>
+
+                </tbody>
+
+                <tfoot>
+                    <td>
+                        <button class="btn btn-success btn-lg">Ver Grafico</button>
+                    </td>
+                </tfoot>
+            </table>
+
+            <div class="input-group">
+
+                <input type="text" class="form-control" id="input-cadena">
+
+                <div class="input-group-append">
+                    <a href="#" class="btn btn-success">
+                        Validar Cadena
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/DFA.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
