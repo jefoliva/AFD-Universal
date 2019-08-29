@@ -12,113 +12,110 @@
     <title>Index</title>
 </head>
 
-<body class="d-flex align-items-center">
+<body class="">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-2 text-center">AFD Universal</h1>
+            <p class="lead">Automata Finito Determinista Universal, permite crear automatas con el numero de estados y
+                el albafeto determinado y a partir de eso especificar el automata en la tabla de transición. También
+                permite evaluar expresiones y graficar el automata</p>
+        </div>
+    </div>
     <div class="container ">
-        <h1 class="display-2 text-center">AFD Universal</h1>
+
         <form action="" class="form" id="automata">
-            <div class="row">
-                <div class="col-3">
+            <div class="row mb-5">
+                <div class="col-4">
                     <label for="input-num-estados" class=""> Número de estados </label>
                     <input type="number" id="input-num-estados" class="form-control" min="1" max="12"
-                        placeholder="Min: 1, Max: 12  ">
+                        placeholder="Min: 1, Max: 12">
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <label for="input-alfabeto" class=""> Alfabeto </label>
                     <input type="text" id="input-alfabeto" class="form-control">
                 </div>
-                <div class="col-3 d-flex align-self-end">
-                    <a href="#" class="btn btn-primary">Generar Tabla</a>
+                <div class="col-4 d-flex align-self-end">
+                    <a href="#" class="btn btn-primary btn-block" id="generar-tabla">Generar Tabla</a>
                 </div>
             </div>
 
-
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">q
-                            <sub>1</sub>
-                        </th>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">q
-                            <sub>1</sub>
-                        </th>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">q
-                            <sub>1</sub>
-                        </th>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">q
-                            <sub>1</sub>
-                        </th>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control">
-                        </td>
-                    </tr>
-
-                </tbody>
-
-                <tfoot>
-                    <td>
-                        <button class="btn btn-success btn-lg">Ver Grafico</button>
-                    </td>
-                </tfoot>
-            </table>
-
-            <div class="input-group">
-
-                <input type="text" class="form-control" id="input-cadena">
-
-                <div class="input-group-append">
-                    <a href="#" class="btn btn-success">
-                        Validar Cadena
-                    </a>
+            <div class="d-none" id="tabla-transicion">
+                <table class="table text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">EDC</th>
+                            <th scope="col">a</th>
+                            <th scope="col">b</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">q
+                                <sub>1</sub>
+                            </th>
+                            <td>
+                                <select name="" id="" class="custom-select">
+                                    <option value="SI">SI</option>
+                                    <option value="NO" selected>NO</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" required>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">q
+                                <sub>1</sub>
+                            </th>
+                            <td>
+                                <select name="" id="" class="custom-select">
+                                    <option value="SI">SI</option>
+                                    <option value="NO" selected>NO</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" required>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">q
+                                <sub>1</sub>
+                            </th>
+                            <td>
+                                <select name="" id="" class="custom-select">
+                                    <option value="SI">SI</option>
+                                    <option value="NO" selected>NO</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" required>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" required>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            Validar Cadena
+                        </span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" id="input-cadena"
+                        placeholder="Inserte el texto a evaluar aqui">
                 </div>
             </div>
         </form>
+
+        <div class="text-center display-4 bg-info text-light mt-4 d-none" style="height: 100px" id="mensaje">Ok</div>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
