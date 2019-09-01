@@ -9,7 +9,7 @@ $(function () {
         let markup = genTableMarkup();
         $('#tabla').html(markup);
         $('#tabla-transicion').fadeIn('slow');
-        $('#tabla-transicion').removeClass('d-none')
+        $('#tabla-transicion').removeClass('d-none');
     });
 
     // Si el usuario se coloca de nuevo en los inputs numero de estados o alfabeto ocultar tabla
@@ -40,6 +40,7 @@ $(function () {
 
         automaton = new DFA(input.slice(0, symbolsToRead).reverse());
         console.log(automaton.next);
+        console.log(genDotFile());
     })
 
     // Al activar evento keyup, simular el input ingresado en Validar Cadena
@@ -71,14 +72,14 @@ $(function () {
         <tbody>
             ${genTableBody(alphabet, n)}
         </tbody>
-        `
+        `;
         return markup;
     }
 
     function genTableHeaders(alphabet) {
         let th = '';
         for (let i = 0; i < alphabet.length; i++) {
-            th += ` <th scope="col">${alphabet[i]}</th>`
+            th += ` <th scope="col">${alphabet[i]}</th>`;
         }
         return th;
     }
@@ -112,8 +113,54 @@ $(function () {
             <td>
                 <input type="number" class="form-control" required min=${0} max=${n - 1}>
             </td>
-            `
+            `;
         }
         return columns;
+    }
+
+    // FUNCIONES PARA GENERAR EL GRAFICO MEDIANTE EL LENGUAJE DOT DE GRAPHVIZ.
+    function genDotFile() {
+        let text = `
+        digraph fsm {
+            rankdir=LR;
+            size="8,5"
+            node [shape = doublecircle]; ${getFinalStates()};
+            node [shape = point ]; qi;
+            
+            node [shape = circle];
+            qi -> q0;
+            ${getStatesAndEdges()}
+        } 
+        `;
+        return text;
+    }
+
+    function getFinalStates() {
+        let finalStates = '';
+        for(let i = 0; i < automaton.action.length; i++) {
+            if(automaton.action[i] === 'SI')
+                finalStates += ` q${i}`;
+        }
+        return finalStates;
+    }
+
+    function getStatesAndEdges() {
+        let text = '';
+        
+        for(let i = 0; i < automaton.action.length; i++) {
+            let labels = new Map();
+            for(let[k, v] of automaton.next[i]) {
+                if(!labels.has(v))
+                    labels.set(v, k);
+                else
+                    labels.set(v, `${labels.get(v)} ${k}`);
+            }
+            
+            for(let[k, v] of labels) {
+                text += `q${i} -> q${k} [ label = "${v}" ];\n`;
+            }
+        }
+
+        return text;
     }
 });
