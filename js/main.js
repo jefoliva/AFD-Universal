@@ -1,17 +1,26 @@
 $(function () {
     let form = document.getElementById("automata");
-    let n;   // numero de estados
-    let alphabet;
-    let automaton;
+    let n;              // numero de estados
+    let alphabet;       // alfabeto
+    let automaton;      // objeto que contiene al automata generado
 
     // Al hacer click sobre boton 'Generar tabla' mostrar la tabla
     $('#generar-tabla').on('click', function (e) {
         let markup = genTableMarkup();
         $('#tabla').html(markup);
+        $('#tabla-transicion').fadeIn('slow');
         $('#tabla-transicion').removeClass('d-none')
     });
 
+    // Si el usuario se coloca de nuevo en los inputs numero de estados o alfabeto ocultar tabla
+    $('#input_num_estados, #input_alfabeto').focus(function(e) {
+        if(!$('#tabla-transicion').hasClass('d-none')) {
+            $('#tabla-transicion').fadeOut('slow');
+        }
+    })
+
     // Al enfocar input para validad cadena, chequear que todos los inputs sean validos
+    // Si todos los inputs son válidos, generar automata mediante la clase DFA
     $('#input-cadena').on('focus', function (e) {
         $hiddenSubmit = $("#submit-hidden");
         for (let i = 0; i < form.elements.length - 2; i++) {
@@ -21,36 +30,24 @@ $(function () {
             }
         }
 
-        n = parseInt($('#input_num_estados').val());        // numero de estados
-        alphabet = $('#input_alfabeto').val();              // alfabeto
+        n = parseInt($('#input_num_estados').val());
+        alphabet = $('#input_alfabeto').val();
         let symbolsToRead = n * alphabet.length + 2 + n;    // numbero de simbolos a leer
         let input = [];                                     // este array contiene el input para el automata
-
-        let test = [3, 'ab', 'SI', '0', '1', 'NO', '1', '2', 'NO', '2', '0']
 
         for (let i = 0; i < form.elements.length; i++)
             input[i] = form.elements[i].value;
 
-        console.log(input);
-        
-        console.log(`simbolsToRead typeof(): ${typeof (symbolsToRead)}`);
-        console.log(`simbolsToRead: ${symbolsToRead}`);
-
-        console.log(`\nn typeof(): ${typeof (n)}`);
-        console.log(`n: ${n}`);
-
-        console.log(`alphabet typeof(): ${typeof (alphabet)}`);
-        console.log(`alphaber: ${alphabet}`);
-
-        console.log(test.slice(0, symbolsToRead));
         automaton = new DFA(input.slice(0, symbolsToRead).reverse());
+        console.log(automaton.next);
     })
 
-    // Al activar evento keyup, mostrar si cadena ingresada es valida o invalida 
+    // Al activar evento keyup, simular el input ingresado en Validar Cadena
+    // y mostrar si es valido o no.
     $("#input-cadena").on("keyup", function (e) {
         let testExpression = $('#input-cadena').val();
-        // console.log(testExpression);
-        $("#mensaje").removeClass('d-none').text(automaton.simulate(testExpression));
+        let result = automaton.simulate(testExpression);
+        $("#mensaje").removeClass('d-none').text(result);
     })
 
     $('#input-cadena').on("blur", function (e) {
@@ -58,6 +55,7 @@ $(function () {
         console.log("lose focus");
     });
 
+    // Funciones para generar el HTML dinamico dependiendo de estados y alfabeto ingresado
     function genTableMarkup() {
         let n = form.elements[0].value;   // numero de estados
         let alphabet = form.elements[1].value;
