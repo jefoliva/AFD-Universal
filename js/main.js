@@ -3,6 +3,8 @@ $(function () {
     let n;              // numero de estados
     let alphabet;       // alfabeto
     let automaton;      // objeto que contiene al automata generado
+    let tabs = $('#tabs');
+    tabs.hide();
 
     // Al hacer click sobre boton 'Generar tabla' mostrar la tabla
     $('#generar-tabla').on('click', function (e) {
@@ -13,9 +15,9 @@ $(function () {
     });
 
     // Si el usuario se coloca de nuevo en los inputs numero de estados o alfabeto ocultar tabla
-    $('#input_num_estados, #input_alfabeto').focus(function(e) {
-        if(!$('#tabla-transicion').hasClass('d-none')) {
-            $('#tabla-transicion').fadeOut('slow');
+    $('#input_num_estados, #input_alfabeto').focus(function (e) {
+        if (!$('#tabla-transicion').hasClass('d-none')) {
+            $('#tabla-transicion, #tabs').fadeOut('slow');
         }
     })
 
@@ -40,6 +42,11 @@ $(function () {
 
         automaton = new DFA(input.slice(0, symbolsToRead).reverse());
         console.log(automaton.next);
+
+        tabs.fadeIn('slow');
+        genGraph();
+        $('#nav-dot').html(`<pre><code>${genDotFile()}</code></pre>`);
+        
         console.log(genDotFile());
     })
 
@@ -55,6 +62,22 @@ $(function () {
         $("#mensaje").addClass('d-none').text('');
         console.log("lose focus");
     });
+
+
+    function genGraph() {
+        var g = graphlibDot.parse(genDotFile());
+        console.log(g.node("q1").shape);
+
+        // Render the graphlib object using d3.
+        var renderer = new dagreD3.Renderer();
+        renderer.run(g, d3.select("svg g"));
+
+        // Optional - resize the SVG element based on the contents.
+        var svg = document.querySelector('#graphContainer');
+        var bbox = svg.getBBox();
+        svg.style.width = bbox.width + 40.0 + "px";
+        svg.style.height = bbox.height + 40.0 + "px";
+    }
 
     // Funciones para generar el HTML dinamico dependiendo de estados y alfabeto ingresado
     function genTableMarkup() {
@@ -137,8 +160,8 @@ $(function () {
 
     function getFinalStates() {
         let finalStates = '';
-        for(let i = 0; i < automaton.action.length; i++) {
-            if(automaton.action[i] === 'SI')
+        for (let i = 0; i < automaton.action.length; i++) {
+            if (automaton.action[i] === 'SI')
                 finalStates += ` q${i}`;
         }
         return finalStates;
@@ -146,18 +169,18 @@ $(function () {
 
     function getStatesAndEdges() {
         let text = '';
-        
-        for(let i = 0; i < automaton.action.length; i++) {
+
+        for (let i = 0; i < automaton.action.length; i++) {
             let labels = new Map();
-            for(let[k, v] of automaton.next[i]) {
-                if(!labels.has(v))
+            for (let [k, v] of automaton.next[i]) {
+                if (!labels.has(v))
                     labels.set(v, k);
                 else
                     labels.set(v, `${labels.get(v)} ${k}`);
             }
-            
-            for(let[k, v] of labels) {
-                text += `q${i} -> q${k} [ label = "${v}" ];\n`;
+
+            for (let [k, v] of labels) {
+                text += `\tq${i} -> q${k} [ label = "${v}" ];\n`;
             }
         }
 

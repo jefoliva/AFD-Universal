@@ -8,8 +8,12 @@
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/main.css">
     <title>Index</title>
+
+    <script src="js/d3.min.js"></script>
+    <script src="js/graphlib-dot.min.js"></script>
+    <script src="js/dagre-d3.min.js"></script>
 </head>
 
 <body class="">
@@ -41,7 +45,7 @@
 
             <div class="d-none" id="tabla-transicion">
                 <table class="table text-center mb-5 table-hover table-sm" id="tabla">
-                    
+
                 </table>
                 <input id="submit-hidden" type="submit" class="d-none" />
                 <div class="input-group">
@@ -55,12 +59,51 @@
                 </div>
             </div>
         </form>
+
+        <div  id="tabs" class="">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-dagre-tab" data-toggle="tab" href="#nav-dagre"
+                        role="tab" aria-controls="nav-dagre" aria-selected="true">Dagre-D3</a>
+                    <a class="nav-item nav-link" id="nav-dot-tab" data-toggle="tab" href="#nav-dot" role="tab"
+                        aria-controls="nav-dot" aria-selected="false">Lenguaje Dot</a>
+                    <a class="nav-item nav-link" id="nav-viz-tab" data-toggle="tab" href="#nav-viz" role="tab"
+                        aria-controls="nav-viz" aria-selected="false">Viz.js</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-dagre" role="tabpanel" aria-labelledby="nav-dagre-tab">
+                    <div id="grafico" class="" height="400">
+                        <svg id="graphContainer" width="100">
+
+                        </svg>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-dot" role="tabpanel" aria-labelledby="nav-dot-tab">
+
+                </div>
+                <div class="tab-pane fade" id="nav-viz" role="tabpanel" aria-labelledby="nav-viz-tab">
+                    <iframe src="http://viz-js.com/" frameborder="0" width="100%" height="800"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/DFA.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        var svg = d3.select("#grafico")
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .call(d3.behavior.zoom().on("zoom", function () {
+                svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+            }))
+            .append("g")
+    </script>
 </body>
 
 </html>
