@@ -55,12 +55,18 @@
                         </span>
                     </div>
                     <input type="text" class="form-control form-control-lg" id="input-cadena"
-                        placeholder="Inserte el texto a evaluar aqui">
+                        placeholder="Inserte el texto a evaluar aqui" autocomplete="off">
+                </div>
+                <div class="d-flex justify-content-end" height="20px">
+                    <span id="input-badge" class=""></span>
                 </div>
             </div>
         </form>
 
-        <div  id="tabs" class="">
+        <hr/>
+
+        <div  id="tabs" class="mt-4">
+            <h4 class="mb-5">Grafo de transición</h4>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-dagre-tab" data-toggle="tab" href="#nav-dagre"
@@ -88,7 +94,6 @@
             </div>
         </div>
     </div>
-
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.js"></script>

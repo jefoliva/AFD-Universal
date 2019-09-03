@@ -17,3 +17,7 @@ svg {
     stroke-width: 1.5px;
     fill: none;
   }
+
+#input-badge {
+  height: 20px;
+}

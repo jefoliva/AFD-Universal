@@ -41,38 +41,50 @@ $(function () {
             input[i] = form.elements[i].value;
 
         automaton = new DFA(input.slice(0, symbolsToRead).reverse());
-        console.log(automaton.next);
 
         tabs.fadeIn('slow');
         genGraph();
         $('#nav-dot').html(`<pre><code>${genDotFile()}</code></pre>`);
-        
+
         console.log(genDotFile());
     })
 
     // Al activar evento keyup, simular el input ingresado en Validar Cadena
     // y mostrar si es valido o no.
     $("#input-cadena").on("keyup", function (e) {
-        let testExpression = $('#input-cadena').val();
+        let inputCadena = $('#input-cadena');
+        let inputBadge = $('#input-badge');
+        let testExpression = inputCadena.val();
         let result = automaton.simulate(testExpression);
-        $("#mensaje").removeClass('d-none').text(result);
+        
+        if (result === 'VALIDO') {
+            inputCadena.css('background-color', 'rgba(92, 184, 92, 0.2)');
+            inputBadge.attr("class", "badge badge-success");
+        } else if(result === 'INVALIDO') {
+            inputCadena.css('background-color', 'rgba(217, 83, 79, 0.2)');
+            inputBadge.attr("class", "badge badge-danger");
+        } else {
+            inputCadena.css('background-color', 'rgba(295, 193, 7, 0.2)');
+            inputBadge.attr("class", "badge badge-warning");
+        }
+
+        $("#input-badge").text(result);
     })
 
     $('#input-cadena').on("blur", function (e) {
-        $("#mensaje").addClass('d-none').text('');
-        console.log("lose focus");
+        $("#input-badge").attr('class', '').text('');
+        $('#input-cadena').css('background-color', 'white')
     });
 
 
     function genGraph() {
         var g = graphlibDot.parse(genDotFile());
-        console.log(g.node("q1").shape);
 
-        // Render the graphlib object using d3.
+        // Renderizar objeto graphlib usando D3
         var renderer = new dagreD3.Renderer();
         renderer.run(g, d3.select("svg g"));
 
-        // Optional - resize the SVG element based on the contents.
+        // Cambiar tamaño del SVG de acuerdo al contenido
         var svg = document.querySelector('#graphContainer');
         var bbox = svg.getBBox();
         svg.style.width = bbox.width + 40.0 + "px";

@@ -21,7 +21,7 @@ class DFA {
             if(this.next[state].has(input[i]))
                 state = this.next[state].get(input[i]);
             else
-                return "Error: Caracter Invalido";
+                return "Error, Caracter Invalido: " + input[i];
         }
 
         return this.action[state] === "SI" ? "VALIDO" : "INVALIDO";
