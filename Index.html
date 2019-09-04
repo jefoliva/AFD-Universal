@@ -28,7 +28,7 @@
     <div class="container ">
 
         <form action="" class="form" id="automata">
-            <div class="row mb-5">
+            <div class="row mb-4">
                 <div class="col-4">
                     <label for="input_num_estados" class=""> Número de estados </label>
                     <input type="number" id="input_num_estados" class="form-control" min="1" max="12"
@@ -42,6 +42,16 @@
                     <a href="#" class="btn btn-primary btn-block" id="generar-tabla">Generar Tabla</a>
                 </div>
             </div>
+           
+            <div class="mb-4">
+                <span class="text-lead">Algunos Ejemplos:</span>
+                <nav class="nav" id="ejemplos">
+                    <a href="#" class="nav-item nav-link" id="evenZerosAndOnes">Numero par de 0's y 1's</a>
+                    <a href="#" class="nav-item nav-link" id="DNASequence">Sequencia de ADN</a>
+                    <a href="#" class="nav-item nav-link" id="realNumbers">Números reales</a>
+                </nav>
+            </div>
+            <hr/>
 
             <div class="d-none" id="tabla-transicion">
                 <span class="text-muted">EDA*: Estado de aceptación</span>
@@ -49,6 +59,12 @@
 
                 </table>
                 <input id="submit-hidden" type="submit" class="d-none" />
+                
+                <div id="ejemplos-cadenas" class="mb-3">
+                    <span class="text-muted mr-3" id="cadenas-validas"></span>
+                    <span class="text-muted mr-3" id="cadenas-invalidas"></span>
+                </div>
+
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -64,9 +80,9 @@
             </div>
         </form>
 
-        <hr/>
+        <hr />
 
-        <div  id="tabs" class="mt-4">
+        <div id="tabs" class="mt-4">
             <h4 class="mb-5">Grafo de transición</h4>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
