@@ -18,6 +18,7 @@ $(function () {
     $('#input_num_estados, #input_alfabeto').focus(function (e) {
         if (!$('#tabla-transicion').hasClass('d-none')) {
             $('#tabla-transicion, #tabs').fadeOut('slow');
+            $('#input-cadena').val('');
         }
     })
 
@@ -89,6 +90,17 @@ $(function () {
         var bbox = svg.getBBox();
         svg.style.width = bbox.width + 40.0 + "px";
         svg.style.height = bbox.height + 40.0 + "px";
+
+        let rectList = document.querySelectorAll('g.node rect');
+        let textList = document.querySelectorAll('g.node tspan');
+
+        for(let i = 0; i < rectList.length; i++) {
+            let index = parseInt(textList[i].textContent.substring(1), 10);
+
+            if(automaton.action[index] === "SI") {
+                rectList[i].setAttribute("style", "outline: 1px double #333; outline-offset: -7px;");
+            }
+        }
     }
 
     // Funciones para generar el HTML dinamico dependiendo de estados y alfabeto ingresado
@@ -100,7 +112,7 @@ $(function () {
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">EDC</th>
+                <th scope="col">EDA</th>
                 ${genTableHeaders(alphabet)}
             </tr>
         </thead>
@@ -164,7 +176,7 @@ $(function () {
             
             node [shape = circle];
             qi -> q0;
-            ${getStatesAndEdges()}
+            ${getStatesAndEdges()}           
         } 
         `;
         return text;

@@ -15,6 +15,9 @@ class DFA {
     }
 
     simulate(input) {
+        if(input.trim().length == 0)
+            return "INVALIDO";
+         
         let state = 0;
         for (let i = 0; i < input.length; i++) {
 
